@@ -48,6 +48,7 @@ def post(urls):
 				if s.content.count('Home Page') !=0 or s.content.count('WebLogic Server Console') !=0 or s.content.count('console.portal') !=0:
 					print i,'Success!!!!!' 
 					print 'weblogic'+'/'+pwd
+					print 'Current threads:'+threading.active_count()
 					f = open(xtime+'.txt', 'a')
 					f.write(i+' ')
 					f.write('weblogic'+'/')
@@ -58,6 +59,7 @@ def post(urls):
 				else:
 					if co == count: #如果已尝试密码数等于字典行数，则输出失败
 						print i,'Failed!'
+						print 'Current threads:'+threading.active_count()
 						f = open("bad.txt", 'a')
 						f.write(i+'\n')
 						f.close()
