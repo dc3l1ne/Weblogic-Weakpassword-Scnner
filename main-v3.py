@@ -81,8 +81,10 @@ def main():
 	print 'Total Threads:%d' %MaxThreads
 	print 'Total URLs:%d' %mythreads.qsize()
 	time.sleep(2)
-	while True:
-		if(threading.active_count() < MaxThreads): #判断正在运行的线程数量,如果小于输入值则继续添加线程
+	while True: #若条件都不满足，则死循环
+		if(threading.active_count() == 0 and mythreads.qsize() == 0) #若剩余URL数和线程数都等于0，则退出
+			break
+		elif(threading.active_count() < MaxThreads): #判断正在运行的线程数量,如果小于输入值则继续添加线程
 			t=mythreads.get() #取出一个线程
 			t.start() #加载该线程
 			t.join(1) #阻塞一秒钟，然后加载下个线程，不愿意等可以注释掉
