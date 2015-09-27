@@ -43,7 +43,7 @@ def post(urls):
 						print i+'\n'+ncount+'min left'
 						time.sleep(60)
 						ct+=1
-					z=1 #重置计数
+					z=1 #重置计数 
 				data = {'j_username':'weblogic','j_password':pwd}
 				s = requests.post(i+'/j_security_check',data =data,timeout=5)
 				if s.content.count('Home Page') !=0 or s.content.count('WebLogic Server Console') !=0 or s.content.count('console.portal') !=0:
