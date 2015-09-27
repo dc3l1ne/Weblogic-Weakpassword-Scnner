@@ -12,6 +12,10 @@ http://185.es
 2015-09-26 18:31
 修复了以前无法控制线程数量的错误
 添加在cmd窗口上显示线程数(Linux系统的就自己修改下命令吧)
+Usage:python main.py 200
+设定的是200个线程，但实际只有199个为破解线程，还有一个主线程
+使用前请安装requests模块
+遇到任何问题或者bug请到我博客留言
 '''
 def post(i,mythreads):
 	global xtime
@@ -83,12 +87,12 @@ def main():
 	print 'Total URLs:%d' %mythreads.qsize()
 	time.sleep(2)
 	while True: #若条件都不满足，则死循环
-		if(threading.active_count() == 0 and mythreads.qsize() == 0): #若剩余URL数和线程数都等于0，则退出
+		if(threading.active_count() == 1 and mythreads.qsize() == 0): #若剩余URL数等于0,活动线程为1，则退出.主线程占一个
 			break
 		elif(threading.active_count() < MaxThreads): #判断正在运行的线程数量,如果小于输入值则继续添加线程
 			t=mythreads.get() #取出一个线程
 			t.start() #加载该线程
-			t.join(1) #阻塞一秒钟，然后加载下个线程，不愿意等可以注释掉
+			t.join(1) #阻塞一秒钟，然后加载下个线程，不愿意等可以注释掉,不建议去掉
 	
 
 if __name__ == '__main__':
