@@ -8,6 +8,7 @@ import os
 '''
 Version 3
 Copyright dc3
+http://185.es
 2015-09-26 18:31
 修复了以前无法控制线程数量的错误
 添加在cmd窗口上显示线程数(Linux系统的就自己修改下命令吧)
@@ -82,7 +83,7 @@ def main():
 	print 'Total URLs:%d' %mythreads.qsize()
 	time.sleep(2)
 	while True: #若条件都不满足，则死循环
-		if(threading.active_count() == 0 and mythreads.qsize() == 0) #若剩余URL数和线程数都等于0，则退出
+		if(threading.active_count() == 0 and mythreads.qsize() == 0): #若剩余URL数和线程数都等于0，则退出
 			break
 		elif(threading.active_count() < MaxThreads): #判断正在运行的线程数量,如果小于输入值则继续添加线程
 			t=mythreads.get() #取出一个线程
