@@ -92,8 +92,8 @@ def main():
 	while True:#若条件都不满足，则死循环
 		os.system("title Current threads: %d,URLs left: %%d" %threading.active_count()%mythreads.qsize()) 
 		if(threading.active_count() == 1 and mythreads.qsize() == 0): #若剩余URL数等于0,活动线程为1，则退出.主线程占一个 #2015-9-28 00:43 Fixed
+			print 'Done at %s' %time.strftime("%Y-%m-%d[%H.%M.%S]")
 			break
-			print threading.active_count()
 		elif(threading.active_count() < MaxThreads): #判断正在运行的线程数量,如果小于输入值则继续添加线程
 			if (mythreads.qsize() ==0 ): #如果剩余URL为0，则不从列队中读取(否则一直处于卡死状态)，并改变窗口标题提示用户 #2015-9-28 20:15 Fixed
 				os.system("title No URL left,waiting to exit,Current threads: %d" %threading.active_count())
