@@ -98,7 +98,8 @@ def main():
 				os.system("title No URL left,waiting to exit,Current threads: %d" %threading.active_count())
 				time.sleep(60) #60秒之后回到上一个if判断线程是否全部结束
 			else:
-				os.system("title Current threads: %d,URLs left: %%d" %threading.active_count()%mythreads.qsize()) #更改窗口标题，如觉得太消耗CPU资源可以注释掉 #线程及URL的变化只会在启动线程时变化 2015-10-2 22:30 Fixed				t=mythreads.get() #取出一个线程
+				os.system("title Current threads: %d,URLs left: %%d" %threading.active_count()%mythreads.qsize()) #更改窗口标题，如觉得太消耗CPU资源可以注释掉 #线程及URL的变化只会在启动线程时变化 2015-10-2 22:30 Fixed				
+				t=mythreads.get() #取出一个线程
 				t.start() #加载该线程
 				t.join(1) #阻塞一秒钟，然后加载下个线程，不愿意等可以注释掉
 	
