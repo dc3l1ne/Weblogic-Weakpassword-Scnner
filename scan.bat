@@ -21,7 +21,7 @@ for /f "eol=- tokens=1 delims= " %%i in (result.txt) do echo %%i>>u1.txt
 for /f "eol=P tokens=1 delims= " %%i in (u1.txt) do echo %%i>>u2.txt
 for /f "eol=S tokens=1 delims= " %%i in (u2.txt) do echo %%i>>u3.txt
 for /f "eol=- tokens=1 delims= " %%i in (u3.txt) do echo http://%%i:%port%/console>>url.txt
-python spider.py url.txt
+python spider.py
 echo All Done!
 pause
 exit
