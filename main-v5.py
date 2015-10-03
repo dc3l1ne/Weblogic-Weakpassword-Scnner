@@ -101,7 +101,7 @@ def main():
 			break
 		elif(threading.active_count() < MaxThreads): #判断正在运行的线程数量,如果小于输入值则继续添加线程
 			if (mythreads.qsize() ==0 ): #如果剩余URL为0，则不从列队中读取(否则一直处于卡死状态)，并改变窗口标题提示用户 #2015-9-28 20:15 Fixed
-				os.system("title No URL left,waiting to exit,Current threads: %d" %threading.active_count())
+				os.system("title No URL left,waiting to exit,Current threads: %d,Success:%d,Failed:%d" %(threading.active_count(),success,fail))
 				time.sleep(60) #60秒之后回到上一个if判断线程是否全部结束
 			else:
 				os.system("title Current threads: %d,URLs left: %d,Success:%d,Failed:%d" %(threading.active_count(),mythreads.qsize(),success,fail)) #更改窗口标题，如觉得太消耗CPU资源可以注释掉 #线程及URL的变化只会在启动线程时变化 2015-10-2 22:30 Fixed
