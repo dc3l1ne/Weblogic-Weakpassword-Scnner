@@ -96,7 +96,6 @@ def main():
 	print 'Total URLs:%d' %mythreads.qsize()
 	time.sleep(2)
 	while True:#若条件都不满足，则死循环
-		os.system("title Current threads: %d,URLs left: %%d" %threading.active_count()%mythreads.qsize()) 
 		if(threading.active_count() == 1 and mythreads.qsize() == 0): #若剩余URL数等于0,活动线程为1，则退出.主线程占一个 #2015-9-28 00:43 Fixed
 			print 'Done at %s' %time.strftime("%Y-%m-%d[%H.%M.%S]")
 			break
