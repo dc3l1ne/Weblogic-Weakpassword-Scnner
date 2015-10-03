@@ -67,7 +67,7 @@ def post(i):
 				elif co == sum: #达到总尝试次数，则输出失败
 						print i,'Failed!'
 						fail+=1
-						f = open("bad.txt", 'a')
+						f = open(xtime+'bad.txt', 'a')
 						f.write(i+'\n')
 						f.close()
 						s = 0
