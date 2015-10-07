@@ -107,7 +107,7 @@ def main():
 				t=mythreads.get() #取出一个线程
 				t.start() #加载该线程
 				t.join(1) #阻塞一秒钟，然后加载下个线程，不愿意等可以注释掉
-	print 'Success:%d,Failed:%d' %(success,fail)
+	print 'Success:%d,Failed:%d,Error:%d' %(success,fail,error)
 
 
 if __name__ == '__main__':
