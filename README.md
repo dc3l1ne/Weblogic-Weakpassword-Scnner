@@ -16,4 +16,5 @@ spider.py:identify Weblogic Servers
 main.py:Brute force
 
 需要安装requests模块，[http://www.python-requests.org/en/latest/user/install/#install](http://www.python-requests.org/en/latest/user/install/#install)
+
 s.exe下载地址 http://d.185.es/s.exe.zip
