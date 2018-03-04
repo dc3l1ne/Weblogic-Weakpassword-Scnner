@@ -38,7 +38,7 @@ def main():
 				if (total == 0):
 					time.sleep(10)
 				else:
-					print "title Spider,Current threads: %d,URLs left: %d,URLs exists:%d" %(threading.active_count(),total,eu)),
+					print "title Spider,Current threads: %d,URLs left: %d,URLs exists:%d\r" %(threading.active_count(),total,eu)),
 					t.start()
 					break
 
