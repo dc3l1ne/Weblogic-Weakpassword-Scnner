@@ -44,9 +44,7 @@ def post(i):
 						success+=1
 						print usr+'/'+pwd
 						f=open(xtime+'.txt', 'a')
-						f.write(i+' ')
-						f.write(usr+'/')
-						f.write(pwd+'\n')
+						f.write('%s %s/%s'%(i,usr,pwd))
 						f.close()
 						s=0
 						return
