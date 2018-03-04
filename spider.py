@@ -8,7 +8,7 @@ import sys
 def check(i,total):
 	global eu
 	try:
-		r = requests.get('http://%s:%s/console/login/LoginForm.jsp'%(i),timeout=10)
+		r = requests.get('http://%s/console/login/LoginForm.jsp'%(i),timeout=10)
 		status=r.content.count('WebLogic')
 		if status !=0:
 			r = 0
@@ -18,14 +18,14 @@ def check(i,total):
 			f.write(i+'\n')
 			f.close()
 	except:
-		print i,'Timeout'
+		pass
 
 def main():
 	global eu
 	eu = 0
 	total=len(open(sys.argv[1],'rU').readlines())
 	print 'Total URLs:%d' %total
-	for i in open("url.txt").readlines():
+	for i in open(sys.argv[1]).readlines():
 		i=i.strip('\n')
 		t=threading.Thread(target=check, args=(i,total))
 		t.setDaemon(True)
@@ -38,7 +38,7 @@ def main():
 				if (total == 0):
 					time.sleep(10)
 				else:
-					print "title Spider,Current threads: %d,URLs left: %d,URLs exists:%d\r" %(threading.active_count(),total,eu)),
+					print "title Spider,Current threads: %d,URLs left: %d,URLs exists:%d\r" %(threading.active_count(),total,eu),
 					t.start()
 					break
 
