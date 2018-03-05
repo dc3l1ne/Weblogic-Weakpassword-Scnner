@@ -29,7 +29,7 @@ def post(i):
 				while (ct<b):
 					ncount=b-ct
 					ncount='%d' %ncount
-					print i+'\n'+ncount+'min left'
+					print i+'\n'+ncount+'min left                                                       '
 					time.sleep(60)
 					ct+=1
 				z=1
@@ -42,7 +42,6 @@ def post(i):
 					if s.content.count('Home Page') !=0 or s.content.count('WebLogic Server Console') !=0 or s.content.count('console.portal') !=0:
 						print 'Success!!!!! %s\t%s/%s                                             '%(i,usr,pwd) 
 						success+=1
-						print usr+'/'+pwd
 						f=open(xtime+'.txt', 'a')
 						f.write('%s %s/%s'%(i,usr,pwd))
 						f.close()
