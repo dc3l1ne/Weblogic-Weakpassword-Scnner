@@ -57,7 +57,7 @@ def post(i):
 						s = 0
 						return
 				except:
-					if count=3:
+					if count==3:
 						print i,'Error!                                                          '
 						error+=1
 						f = open(xtime+'error.txt', 'a')
