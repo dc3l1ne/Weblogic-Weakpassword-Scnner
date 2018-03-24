@@ -1,7 +1,11 @@
 # Weblogic-Weakpassword-Scnner
 pip install requests
 
-1.python spider.py ip.txt
+You can use masscan to scan ip range with CIDR format
+  masscan -iL ip.txt -oL 7001.txt -p 7001 --max-rate=80000
+  awk '{print $4,$3}' 7001.txt|sed 's/ /:/g' > scanned.txt
+
+1.python spider.py scanned.txt
 
 2.python brute.py
 
