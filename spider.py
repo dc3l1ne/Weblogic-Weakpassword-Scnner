@@ -6,7 +6,7 @@ import os
 import sys
 import traceback
 
-MAX_THREAD=2
+MAX_THREAD=200
 
 class Spider:
 	def __init__(self):
@@ -42,12 +42,12 @@ class Spider:
 					if threading.active_count() < MAX_THREAD:
 						t.start()
 						total-=1
-						print "Current threads: %d,URLs left: %d,Success:%d\r" % (threading.active_count(), total, self.success),
+						print "Current threads: %d,URLs left: %d,Success:%d                             \r" % (threading.active_count(), total, self.success),
 						break
 					else:
 						time.sleep(1)
 		while threading.active_count() > 1:
-			print "Current threads: %d,URLs left: %d,Success:%d\r" % (threading.active_count(), total, self.success),
+			print "Current threads: %d,URLs left: %d,Success:%d                  \r" % (threading.active_count(), total, self.success),
 			time.sleep(1)
 if __name__ == '__main__':
 	run=Spider()
