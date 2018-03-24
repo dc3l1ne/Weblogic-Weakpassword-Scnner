@@ -4,8 +4,9 @@ import threading
 import time
 import os
 import sys
+import traceback
 
-MAX_THREAD=100
+MAX_THREAD=2
 
 class Spider:
 	def __init__(self):
@@ -16,14 +17,14 @@ class Spider:
 			status = r.content.count('WebLogic')
 			if status != 0:
 				r = 0
-				print i, 'Exists!!!!!                                                            '
+				print url, 'Exists!!!!!                                                            '
 				self.success += 1
 				f = open("url_list", 'a')
-				f.write(i + '\n')
+				f.write(url + '\n')
 				f.close()
 		except:
 			pass
-	def blocks(files, size=65536):
+	def blocks(self,files, size=65536):
 		while True:
 			b = files.read(size)
 			if not b: break
@@ -31,9 +32,11 @@ class Spider:
 	def _main(self):
 		with open(sys.argv[1]) as f:
 			total=sum(bl.count("\n") for bl in self.blocks(f))
+			print total
+		with open(sys.argv[1]) as f:
 			for url in f:
 				url = url.strip()
-				t = threading.Thread(target=check, args=(url,))
+				t = threading.Thread(target=self._check, args=(url,))
 				t.setDaemon(True)
 				while True:
 					if threading.active_count() < MAX_THREAD:
@@ -43,6 +46,9 @@ class Spider:
 						break
 					else:
 						time.sleep(1)
-
+		while threading.active_count() > 1:
+			print "Current threads: %d,URLs left: %d,Success:%d\r" % (threading.active_count(), total, self.success),
+			time.sleep(1)
 if __name__ == '__main__':
-	main()
+	run=Spider()
+	run._main()
