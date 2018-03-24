@@ -5,43 +5,44 @@ import time
 import os
 import sys
 
-def check(i,total):
-	global eu
-	try:
-		r = requests.get('http://%s/console/login/LoginForm.jsp'%(i),timeout=10)
-		status=r.content.count('WebLogic')
-		if status !=0:
-			r = 0
-			print i,'Exists!!!!!                                                            '
-			eu+=1
-			f = open("u.txt", 'a')
-			f.write(i+'\n')
-			f.close()
-	except:
-		pass
+MAX_THREAD=100
 
-def main():
-	global eu
-	eu = 0
-	total=len(open(sys.argv[1],'rU').readlines())
-	print 'Total URLs:%d' %total
-	for i in open(sys.argv[1]).readlines():
-		i=i.strip('\n')
-		t=threading.Thread(target=check, args=(i,total))
-		t.setDaemon(True)
-		total-=1
+class Spider:
+	def __init__(self):
+		self.success=0
+	def _check(self,url):
+		try:
+			r = requests.get('http://%s/console/login/LoginForm.jsp' % (url), timeout=10)
+			status = r.content.count('WebLogic')
+			if status != 0:
+				r = 0
+				print i, 'Exists!!!!!                                                            '
+				self.success += 1
+				f = open("url_list", 'a')
+				f.write(i + '\n')
+				f.close()
+		except:
+			pass
+	def blocks(files, size=65536):
 		while True:
-			if(threading.active_count() == 1 and total == 0 ):
-				print 'All Done at %s' %time.strftime("%Y-%m-%d[%H.%M.%S]")
-				break
-			elif (threading.active_count() < 200):
-				if (total == 0):
-					time.sleep(10)
-				else:
-					print "title Spider,Current threads: %d,URLs left: %d,URLs exists:%d\r" %(threading.active_count(),total,eu),
-					t.start()
-					break
-
+			b = files.read(size)
+			if not b: break
+			yield b
+	def _main(self):
+		with open(sys.argv[1]) as f:
+			total=sum(bl.count("\n") for bl in self.blocks(f))
+			for url in f:
+				url = url.strip()
+				t = threading.Thread(target=check, args=(url,))
+				t.setDaemon(True)
+				while True:
+					if threading.active_count() < MAX_THREAD:
+						t.start()
+						total-=1
+						print "Current threads: %d,URLs left: %d,Success:%d\r" % (threading.active_count(), total, self.success),
+						break
+					else:
+						time.sleep(1)
 
 if __name__ == '__main__':
 	main()
