@@ -17,7 +17,7 @@ class Spider:
 			status = r.content.count('WebLogic')
 			if status != 0:
 				r = 0
-				print url, 'Exists!!!!!                                                            '
+				# print url, 'Exists!!!!!                                                            '
 				self.success += 1
 				f = open("url_list", 'a')
 				f.write(url + '\n')
@@ -37,17 +37,20 @@ class Spider:
 			for url in f:
 				url = url.strip()
 				t = threading.Thread(target=self._check, args=(url,))
-				t.setDaemon(True)
+				t.daemon=True
 				while True:
 					if threading.active_count() < MAX_THREAD:
 						t.start()
 						total-=1
-						print "Current threads: %d,URLs left: %d,Success:%d                             \r" % (threading.active_count(), total, self.success),
+						sys.stdout.write("Current threads: %d,URLs left: %d,Success:%d                             \r" % (threading.active_count(), total, self.success),)
+						sys.stdout.flush()
 						break
 					else:
 						time.sleep(1)
 		while threading.active_count() > 1:
-			print "Current threads: %d,URLs left: %d,Success:%d                  \r" % (threading.active_count(), total, self.success),
+			sys.stdout.write("Current threads: %d,URLs left: %d,Success:%d                             \r" % (
+			threading.active_count(), total, self.success), )
+			sys.stdout.flush()
 			time.sleep(1)
 if __name__ == '__main__':
 	run=Spider()
